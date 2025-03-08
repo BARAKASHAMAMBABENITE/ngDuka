@@ -1,0 +1,55 @@
+<main class="max-width">
+  @if (loading()) {
+  <h1>Chargement du produit...</h1>
+  }@else {
+  <div class="product-container">
+    @if (product) {
+    <img [src]="product.image" alt="product image" />
+    <div class="product-info">
+      <p></p>
+      <p>
+        <b>{{ product.title }}</b>
+      </p>
+      <p>
+        <b>{{ product.category }}</b>
+      </p>
+      <p>
+        <b>{{ product.price }}</b>
+      </p>
+      <div class="quantity-container">
+        <span>Qantité: </span>
+        <button [disabled]="productQty() === 1" (click)="qtyHandling('minus')">
+          -
+        </button>
+        <span
+          ><b>{{ productQty() }}</b></span
+        >
+        <button (click)="qtyHandling('add')" [disabled]="productQty() === 5">
+          +
+        </button>
+      </div>
+      <hr />
+      <span
+        ><b>Total: $ {{ product.price! * productQty() }}</b></span
+      >
+      <button (click)="addTocart(product)">Ajouter au panier</button>
+      <br />
+      <hr />
+      <p>{{ product.description }}</p>
+    </div>
+
+    }@else {
+    <p class="center">Aucun produit trouvé</p>
+    }
+  </div>
+  }
+
+  <br />
+  <br />
+  <app-product-list
+    sectionTitle="Ceci pourrait aussi vous plaire"
+    [query]="'allProducts'"
+  />
+  <br />
+  <br />
+</main>
